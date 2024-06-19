@@ -529,7 +529,10 @@ def vd_login():
         cursor.execute('''SELECT * FROM booked_vehicle_rentals INNER JOIN customer ON customer.cust_id = booked_vehicle_rentals.cust_id INNER JOIN vehicle_rental ON vehicle_rental.vehicle_rental_id = booked_vehicle_rentals.vehicle_rental_id WHERE vehicle_rental.vehicle_rental_name = %s;''',(vendor_business,))
         customer_details=cursor.fetchall()
     elif vendor_type == 'hotel':
-        cursor.execute('''SELECT * FROM booked_hotel INNER JOIN hotels ON hotels.hotel_id = booked_hotel.hotel_id WHERE hotels.hotels_name = %s;''',(vendor_business,))
+        cursor.execute('''SELECT `hotel_id` FROM `hotels` WHERE hotels.`hotels_name` = %s;''',(vendor_business,))
+        fetching_ids=cursor.fetchall()
+        print(fetching_ids)
+        cursor.execute('''SELECT * FROM booked_hotel INNER JOIN hotels ON hotels.hotel_id = booked_hotel.hotel_id WHERE hotels.hotel_id = %s;''',(fetching_ids,))
         details=cursor.fetchall()
         cursor.execute('''SELECT COUNT(booked_hotel.booked_hotel_id) FROM booked_hotel INNER JOIN hotels ON hotels.hotel_id = booked_hotel.hotel_id WHERE hotels.hotels_name = %s;''',(vendor_business,))
         count_details=cursor.fetchall()
