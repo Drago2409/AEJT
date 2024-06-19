@@ -1,0 +1,8 @@
+DOWNLOAD THE VIDEO FROM THE BELOW LINK 
+
+https://drive.google.com/file/d/1C0ak75RMWxhVPdSEI1cmfz7jG90-Vkh2/view?usp=sharing
+
+SAVE THIS VIDEO TO THIS PATH
+1)	\static\video
+
+2)	\static\customer_assets\img
