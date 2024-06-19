@@ -6,3 +6,20 @@ SAVE THIS VIDEO TO THIS PATH
 1)	\static\video
 
 2)	\static\customer_assets\img
+
+
+AFTER THE ABOVE STEPS
+ 
+CREATE YOUR ENVIROMENT 
+1)	python -m venv venv
+
+INSTALL REQUIRED LIBRARY 
+1)	EXAMPLE: PIP INSTALL --LIBRARY_NAME--
+
+TO START YOUR VIRTUAL ENVIROMENT
+1)	venv/Scripts/activate
+2)	python app.py
+
+TO DEACTIVATE YOUR VIRTUAL ENVIROMENT
+1)	CTRL+C
+2)	deactivate
