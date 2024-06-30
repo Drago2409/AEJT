@@ -128,7 +128,7 @@
                         <h3 class="mt-4">Price: &#8377; {{ recommendations[0][5] }} for {{ recommendations[0][8] }} Person</h3>
                         <div class="col-12 text-md-end">
                             {% if user %}
-                            <a href="{{ url_for('payment') }}" class="btn btn-primary py-3 px-5" style="border-radius: 30px 30px 30px 30px;" type="submit">Book Now</a>
+                            <a href="{{ url_for('rec_payment') }}" class="btn btn-primary py-3 px-5" style="border-radius: 30px 30px 30px 30px;" type="submit">Book Now</a>
                             {% else %}
                             <a href="{{ url_for('login') }}" class="btn btn-primary py-3 px-5" style="border-radius: 30px 30px 30px 30px;" type="submit">Please Sign-in</a>
                             {% endif %}

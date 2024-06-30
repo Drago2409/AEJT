@@ -62,7 +62,7 @@
                 </div>
                 {% if session['logged_in'] != True %}
                 <a href="{{ url_for('register') }}" class="btn btn-primary rounded-pill py-2 px-4">Register</a>
-                {% elif session['logged_in'] == True and user %}
+                {% elif session['logged_in'] == True %}
                 <div class="dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         <img class="img-xs rounded-circle" src="{{ url_for('static', filename='admin_assets/images/faces/face15.jpg') }}" alt="Profile Picture" style="width: 30px; height: 30px;">

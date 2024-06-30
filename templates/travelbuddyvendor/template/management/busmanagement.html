@@ -211,15 +211,15 @@
                   <table class="table table-dark">
                     <thead>
                       <tr>
+                        <th>BUS IMAGE</th>
                         <th>BUS NAME</th>
-                        <th>BUS PLATE</th>
-                        <th>SEAT CAPICITY</th>
-                        <th>SEAT CAPICITY</th>
-                        <th>SEAT CAPICITY</th>
-                        <th>SEAT CAPICITY</th>
-                        <th>SEAT CAPICITY</th>
-                        <th>SEAT CAPICITY</th>
-                        <th>STATUS</th>
+                        <th>DEPARTURE STAND</th>
+                        <th>ARRIVAL STAND</th>
+                        <th>DEPARTURE STAND</th>
+                        <th>ARRIVAL STAND</th>
+                        <th>AVAILABLE SEATS</th>
+                        <th>TOTAL SEATS</th>
+                        <th> PRICE</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -234,11 +234,7 @@
                         <td>{{ managements[7] }}</td>
                         <td>{{ managements[8] }}</td>
                         <td>{{ managements[9] }}</td>
-                        <td>
-                          <button type="button" class="btn btn-outline-primary btn-fw" data-toggle="modal" data-target="#showMoreModal1">Show More</button>
-                          <button type="button" class="btn btn-outline-info btn-fw" data-toggle="modal" data-target="#editModal1">Edit</button>
-                          <button type="button" class="btn btn-outline-danger btn-fw" data-toggle="modal" data-target="#deleteModal1">Delete</button>
-                        </td>
+                        
                       </tr>
                       {% endfor %}
                       <!-- <tr>
@@ -256,13 +252,7 @@
                   </table></div>
                    <!-- <button type="button" class="btn btn-secondary btn-rounded btn-fw" onclick="window.location.href='/corona-free-dark-bootstrap-admin-template-1.0.0/template/editform/flightbookingedit.html'">Secondary</button> -->
               
-                  <button type="button" class="btn btn-secondary btn-rounded btn-fw" id="editButton">ADD</button>
-
-                  <script>
-                      document.getElementById("editButton").addEventListener("click", function() {
-                          window.location.href = "flightbookingedit.html";
-                      });
-                  </script>
+                  
               
             </div>
           </div>
@@ -485,10 +475,15 @@
                   <table class="table table-dark">
                     <thead>
                       <tr>
-                        <th>BUS NAME</th>
-                        <th>BUS PLATE</th>
-                        <th>SEAT CAPICITY</th>
-                        <th>STATUS</th>
+                        <th>FLIGHT IMAGE</th>
+                        <th>FLIGHT NO</th>
+                        <th>DEPARTURE AIRPORT</th>
+                        <th>ARRIVAL AIRPORT</th>
+                        <th>DEPARTURE TIME</th>
+                        <th>ARRIVAL TIME</th>
+                        <th>SEAT AVAILABLE</th>
+                        <th>TOTAL SEATS</th>
+                        <th>PRICE</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -503,11 +498,7 @@
                         <td>{{ managements[8] }}</td>
                         <td>{{ managements[9] }}</td>
                         <td>{{ managements[10] }}</td>
-                        <td>
-                          <button type="button" class="btn btn-outline-primary btn-fw" data-toggle="modal" data-target="#showMoreModal1">Show More</button>
-                          <button type="button" class="btn btn-outline-info btn-fw" data-toggle="modal" data-target="#editModal1">Edit</button>
-                          <button type="button" class="btn btn-outline-danger btn-fw" data-toggle="modal" data-target="#deleteModal1">Delete</button>
-                        </td>
+                       
                       </tr>
                       {% endfor %}
 
@@ -539,13 +530,7 @@
                   </table></div>
                    <!-- <button type="button" class="btn btn-secondary btn-rounded btn-fw" onclick="window.location.href='/corona-free-dark-bootstrap-admin-template-1.0.0/template/editform/flightbookingedit.html'">Secondary</button> -->
               
-                  <button type="button" class="btn btn-secondary btn-rounded btn-fw" id="editButton">ADD</button>
-
-                  <script>
-                      document.getElementById("editButton").addEventListener("click", function() {
-                          window.location.href = "flightbookingedit.html";
-                      });
-                  </script>
+                  
               
             </div>
           </div>
@@ -754,10 +739,12 @@
                   <table class="table table-dark">
                     <thead>
                       <tr>
-                        <th>CAR NAME</th> 
-                        <th>NUMBER PLATE</th>
-                        <th>FARE PER DAY</th>
-                        <th>STATUS</th>
+                        <th>HOTEL IMAGE</th> 
+                        <th>HOTEL NAME</th>
+                        <th>ADDRESS</th>
+                        <th>DESCRIPTION</th>
+                        <th>PRICE</th>
+                        
                       </tr>
                     </thead>
                     <tbody>
@@ -766,14 +753,10 @@
                         <td><img class="img-xs rounded-circle" src="{{ url_for('static', filename=managements[2]) }}" alt=""></td>
                         <td>{{ managements[1] }}</td>
                         <td>{{ managements[3] }}</td>
-                        <td>{{ managements[4] }}</td>
+                        <!-- <td>{{ managements[4] }}</td> -->
                         <td>{{ managements[5] }}</td>
                         <td>{{ managements[6] }}</td>
-                        <td>
-                          <button type="button" class="btn btn-outline-primary btn-fw" data-toggle="modal" data-target="#showMoreModal1">Show More</button>
-                          <button type="button" class="btn btn-outline-info btn-fw" data-toggle="modal" data-target="#editModal1">Edit</button>
-                          <button type="button" class="btn btn-outline-danger btn-fw" data-toggle="modal" data-target="#deleteModal1">Delete</button>
-                        </td>
+                        
                       </tr>
                       {% endfor %}
                       <!-- <tr>
@@ -817,13 +800,7 @@
                   </table></div>
                    <!-- <button type="button" class="btn btn-secondary btn-rounded btn-fw" onclick="window.location.href='/corona-free-dark-bootstrap-admin-template-1.0.0/template/editform/flightbookingedit.html'">Secondary</button> -->
               
-                  <button type="button" class="btn btn-secondary btn-rounded btn-fw" id="editButton">ADD</button>
-
-                  <script>
-                      document.getElementById("editButton").addEventListener("click", function() {
-                          window.location.href = "flightbookingedit.html";
-                      });
-                  </script>
+                 
               
             </div>
           </div>
@@ -1032,10 +1009,12 @@
                   <table class="table table-dark">
                     <thead>
                       <tr>
-                        <th>CAR NAME</th> 
-                        <th>NUMBER PLATE</th>
-                        <th>FARE PER DAY</th>
-                        <th>STATUS</th>
+                        <th>RENTAL IMAGE</th> 
+                        <th>RENTAL SERVICE NAME</th>
+                        <th>BOOKED VEHICLES</th>
+                        <th>TOTAL VEHICLES</th>
+                        <th>PRICE</th>
+                       
                       </tr>
                     </thead>
                     <tbody>
@@ -1050,11 +1029,7 @@
                         <td>{{ managements[7] }}</td>
                         <td>{{ managements[8] }}</td>
                         <td>{{ managements[9] }}</td> -->
-                        <td>
-                          <button type="button" class="btn btn-outline-primary btn-fw" data-toggle="modal" data-target="#showMoreModal1">Show More</button>
-                          <button type="button" class="btn btn-outline-info btn-fw" data-toggle="modal" data-target="#editModal1">Edit</button>
-                          <button type="button" class="btn btn-outline-danger btn-fw" data-toggle="modal" data-target="#deleteModal1">Delete</button>
-                        </td>
+                        
                       </tr>
                       {% endfor %}
 
@@ -1099,13 +1074,7 @@
                   </table></div>
                    <!-- <button type="button" class="btn btn-secondary btn-rounded btn-fw" onclick="window.location.href='/corona-free-dark-bootstrap-admin-template-1.0.0/template/editform/flightbookingedit.html'">Secondary</button> -->
               
-                  <button type="button" class="btn btn-secondary btn-rounded btn-fw" id="editButton">ADD</button>
-
-                  <script>
-                      document.getElementById("editButton").addEventListener("click", function() {
-                          window.location.href = "flightbookingedit.html";
-                      });
-                  </script>
+                 
               
             </div>
           </div>
@@ -1328,16 +1297,21 @@
                   <table class="table table-dark">
                     <thead>
                       <tr>
-                        <th>BUS NAME1</th>
-                        <th>BUS PLATE</th>
-                        <th>SEAT CAPICITY</th>
-                        <th>STATUS</th>
+                        <th>TRAIN IMAGE</th>
+                        <th>TRAIN NO</th>
+                        <th>DEPART STATION</th>
+                        <th>ARRIVAL STATION</th>
+                        <th>DEPARTURE TIME</th>
+                        <th>ARRIVAL TIME</th>
+                        <th>AVAILABLE SEATS</th>
+                        <th>TOTAL SEATS</th>
+                        <th>PRICE</th>
                       </tr>
                     </thead>
                     <tbody>
                       {% for managements in management %}
                       <tr>
-                        <td><img class="img-xs rounded-circle" src="{{ url_for('static', filename=managements[3]) }}" alt=""></td>
+                        <td><img class="img-xs rounded-circle" src="{{ url_for('static', trains[3]) }}" alt=""></td>
                         <td>{{ managements[1] }}</td>
                         <td>{{ managements[4] }}</td>
                         <td>{{ managements[5] }}</td>
@@ -1346,11 +1320,7 @@
                         <td>{{ managements[8] }}</td>
                         <td>{{ managements[9] }}</td>
                         <td>{{ managements[10] }}</td>
-                        <td>
-                          <button type="button" class="btn btn-outline-primary btn-fw" data-toggle="modal" data-target="#showMoreModal1">Show More</button>
-                          <button type="button" class="btn btn-outline-info btn-fw" data-toggle="modal" data-target="#editModal1">Edit</button>
-                          <button type="button" class="btn btn-outline-danger btn-fw" data-toggle="modal" data-target="#deleteModal1">Delete</button>
-                        </td>
+                        
                       </tr>
                       {% endfor %}
 
@@ -1382,13 +1352,7 @@
                   </table></div>
                    <!-- <button type="button" class="btn btn-secondary btn-rounded btn-fw" onclick="window.location.href='/corona-free-dark-bootstrap-admin-template-1.0.0/template/editform/trainbookingedit.html'">Secondary</button> -->
               
-                  <button type="button" class="btn btn-secondary btn-rounded btn-fw" id="editButton">ADD</button>
-
-                  <script>
-                      document.getElementById("editButton").addEventListener("click", function() {
-                          window.location.href = "trainbookingedit.html";
-                      });
-                  </script>
+                  
               
             </div>
           </div>

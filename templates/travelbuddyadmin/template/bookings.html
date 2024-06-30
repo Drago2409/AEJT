@@ -282,10 +282,13 @@
                     <table class="table table-dark">
                       <thead>
                         <tr>
-                          <th>User ID</th>
+                          <th>User Id</th>
+                          <th>First Name</th>
+                          <th>Last Name</th>
+                          <th>Gender</th>
+                          <th>Email Id</th>
+                          <th>Phone No</th>
                           <th>Booking Id</th>
-                          
-                          <th>Itinerary Id</th>
                           <!-- <th>Flight details</th>
                           <th>Train details</th>
                           <th>Hotel details</th>
@@ -294,19 +297,19 @@
                         </tr>
                       </thead>
                       <tbody>
+                       
+
                         {% for booking in bookings %}
-                        <tr>
-                          <td>{{ booking[0] }}</td>
-                          <td>{{ booking[1] }}</td>
-                          <td>{{ booking[3] }}</td>
-                          <td>{{ booking[4] }}</td>
-                          <td>
-                            <button type="button" class="btn btn-outline-primary btn-fw" data-toggle="modal" data-target="#showMoreModal1">Show More</button>
-                            <button type="button" class="btn btn-outline-info btn-fw" data-toggle="modal" data-target="#editModal1">Edit</button>
-                            <button type="button" class="btn btn-outline-danger btn-fw" data-toggle="modal" data-target="#deleteModal1">Delete</button>
-                          </td>
-                        </tr>
-                        {% endfor %}  
+                                                <tr>
+                                                  <td>{{ booking[0] }}</td>
+                                                  <td>{{ booking[13] }}</td>
+                                                  <td>{{ booking[14] }}</td>
+                                                  <td>{{ booking[15] }}</td>
+                                                  <td>{{ booking[16] }}</td>
+                                                  <td>{{ booking[17] }}</td>
+                                                  <td>{{ booking[12] }}</td>
+                                                </tr>
+                                                {% endfor %}  
                         </tr>
 
 

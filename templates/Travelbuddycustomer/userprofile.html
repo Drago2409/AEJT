@@ -63,7 +63,22 @@
                     <a href="{{ url_for('itinerary') }}" class="nav-item nav-link">Itinerary</a>
                     <a href="{{ url_for('contact') }}" class="nav-item nav-link">Contact</a>
                 </div>
+                {% if session['logged_in'] != True %}
                 <a href="{{ url_for('register') }}" class="btn btn-primary rounded-pill py-2 px-4">Register</a>
+                {% elif session['logged_in'] == True %}
+                <div class="dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <img class="img-xs rounded-circle" src="{{ url_for('static', filename='admin_assets/images/faces/face15.jpg') }}" alt="Profile Picture" style="width: 30px; height: 30px;">
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item" href="{{ url_for('userprofile') }}">Profile</a></li>
+                        <li><a class="dropdown-item" href="{{ url_for('your_itinerary') }}">your itinerary</a></li>
+                        <li><a class="dropdown-item" href="{{ url_for('docstore') }}">Documentation</a></li>
+                        <li><a class="dropdown-item" href="{{ url_for('emergency') }}">Emergency</a></li>
+                        <li><a class="dropdown-item" href="{{ url_for('logout') }}">Logout</a></li>
+                    </ul>
+                </div>
+                {% endif %}
             </div>
         </nav>
     </div>
@@ -93,30 +108,23 @@
         <div class="row g-5">
             <div class="col-lg-4 wow fadeInUp" data-wow-delay="0.1s">
                 <div class="position-relative h-100">
-                    <img class="img-fluid rounded-circle w-100 h-100" src="{{ url_for('static', filename='customer_assets/img/user.jpg') }}" alt="" style="object-fit: cover;">
+                    <img class="img-fluid rounded-circle w-100 h-100" src="{{ url_for('static', filename='customer_assets/img/user.webp') }}" alt="" style="object-fit: cover;">
                 </div>
             </div>
             <div class="col-lg-8 wow fadeInUp" data-wow-delay="0.3s">
-                <h1 class="mb-4">John Smith</h1>
-                <p class="mb-4">Welcome to John Smith's profile. Here you can find all the necessary details about John, including his favorite travel destinations, recent activities, and personal preferences.</p>
+                <h1 class="mb-4">{{ customer_exists[1] }} {{ customer_exists[2] }}</h1>
+                <p class="mb-4">Welcome to {{ customer_exists[1] }}{{ customer_exists[2] }}'s profile. Here you can find all the necessary details about {{ customer_exists[1] }}, including his favorite travel destinations, recent activities, and personal preferences.</p>
                 <div class="row gy-2 gx-4 mb-4">
                     <div class="col-sm-6">
-                        <p class="mb-0"><i class="fa fa-envelope text-primary me-2"></i>johnsmith@example.com</p>
+                        <p class="mb-0"><i class="fa fa-envelope text-primary me-2"></i>{{ customer_exists[4] }}</p>
                     </div>
                     <div class="col-sm-6">
-                        <p class="mb-0"><i class="fa fa-phone-alt text-primary me-2"></i>+012 345 6789</p>
+                        <p class="mb-0"><i class="fa fa-phone-alt text-primary me-2"></i>{{ customer_exists[5] }}</p>
                     </div>
                     <div class="col-sm-6">
-                        <p class="mb-0"><i class="fa fa-map-marker-alt text-primary me-2"></i>123 Street, New York, USA</p>
-                    </div>
-                    <div class="col-sm-6">
-                        <p class="mb-0"><i class="fa fa-birthday-cake text-primary me-2"></i>January 1, 1990</p>
-                    </div>
-                    <div class="col-sm-6">
-                        <p class="mb-0"><i class="fa fa-venus-mars text-primary me-2"></i>Male</p>
+                        <p class="mb-0"><i class="fa fa-venus-mars text-primary me-2"></i>{{ customer_exists[3] }}</p>
                     </div>
                 </div>
-                <a class="btn btn-primary py-3 px-5 mt-2" href="#" data-bs-toggle="modal" data-bs-target="#editProfileModal">Edit Profile</a>
             </div>
         </div>
     </div>
@@ -126,7 +134,7 @@
 
 
     <!-- User Activities Start -->
-    <div class="container-xxl py-5">
+    <!-- <div class="container-xxl py-5">
         <div class="container">
             <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
                 <h6 class="section-title bg-white text-center text-primary px-3">User Activities</h6>
@@ -168,7 +176,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> -->
     <!-- User Activities End -->
 
     <!-- Edit Profile Modal Start -->

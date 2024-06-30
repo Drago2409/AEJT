@@ -277,6 +277,7 @@
                   <th>Flight Id</th>
                   <th>Flight Number</th>
                   <th>Flight Name</th>
+                  <th>Flight Image</th>
                   <th>Depart Airport </th>
                   <th>Arrival Airport</th>
                   <th>Depart Time</th>
@@ -293,18 +294,14 @@
                     <td>{{ flights[0] }}</td>
                     <td>{{ flights[1] }}</td>
                     <td>{{ flights[2] }}</td>
-                    <td>{{ flights[3] }}</td>
+                    <td><img class="img-xs rounded-circle" src="{{ url_for('static', filename=flights[3]) }}" alt=""></td>
                     <td>{{ flights[4] }}</td>
                     <td>{{ flights[5] }}</td>
                     <td>{{ flights[6] }}</td>
                     <td>{{ flights[7] }}</td>
                     <td>{{ flights[8] }}</td>
                     <td>{{ flights[9] }}</td>
-                    <td>
-                      <button type="button" class="btn btn-outline-primary btn-fw" data-toggle="modal" data-target="#showMoreModal1">Show More</button>
-                      <button type="button" class="btn btn-outline-info btn-fw" data-toggle="modal" data-target="#editModal1">Edit</button>
-                      <button type="button" class="btn btn-outline-danger btn-fw" data-toggle="modal" data-target="#deleteModal1">Delete</button>
-                    </td>
+                    <td>{{ flights[10] }}</td>
                   </tr>
                 {% endfor %} 
                 </tbody>
@@ -331,11 +328,18 @@
     <!-- Plugin js for this page -->
     <!-- End plugin js for this page -->
     <!-- inject:js -->
-    <script src="../assets/js/off-canvas.js"></script>
+    <!-- <script src="../assets/js/off-canvas.js"></script>
     <script src="../assets/js/hoverable-collapse.js"></script>
     <script src="../assets/js/misc.js"></script>
     <script src="../assets/js/settings.js"></script>
-    <script src="../assets/js/todolist.js"></script>
+    <script src="../assets/js/todolist.js"></script> -->
     <!-- endinject -->
+
+    <script src="{{ url_for('static', filename='admin_assets/vendors/js/vendor.bundle.base.js') }}"></script>
+    <script src="{{ url_for('static', filename='admin_assets/vendors/js/off-canvas.js') }}"></script>
+    <script src="{{ url_for('static', filename='admin_assets/vendors/js/hoverable-collapse.js') }}"></script>
+    <script src="{{ url_for('static', filename='admin_assets/vendors/js/misc.js') }}"></script>
+    <script src="{{ url_for('static', filename='admin_assets/vendors/js/settings.js') }}"></script>
+    <script src="{{ url_for('static', filename='admin_assets/vendors/js/todolist.js') }}"></script>
   </body>
 </php>

@@ -192,7 +192,7 @@ def your_itinerary():
 def userprofile():
     customer_exists = session.get('customer_exists')
     if customer_exists:
-        return render_template('/Travelbuddycustomer/userprofile.html')
+        return render_template('/Travelbuddycustomer/userprofile.html',customer_exists=customer_exists)
     
 @app.route('/thankyou')
 def thankyou():
@@ -270,8 +270,21 @@ def display():
 @app.route('/payment')
 def payment():
     customer_exists = session.get('customer_exists')
+
     if customer_exists:
-        return render_template('/Travelbuddycustomer/payment.html')
+        return render_template('/Travelbuddycustomer/payment.html',total_cost=total_cost)
+    else:
+        return render_template('/Travelbuddycustomer/login.html')
+    
+@app.route('/rec_payment')
+def rec_payment():
+    customer_exists = session.get('customer_exists')
+    cursor = mysql.connection.cursor()
+    cursor.execute('''SELECT * FROM recommendations''')
+    recommendations=cursor.fetchall()
+    rec = recommendations[0][5]
+    if customer_exists:
+        return render_template('/Travelbuddycustomer/payment.html',total_cost=rec)
     else:
         return render_template('/Travelbuddycustomer/login.html')
 
@@ -329,11 +342,14 @@ def logout():
 @app.route('/admin')
 def admin():
     admin_exists = session.get('admin_data')
+    cust_budget = session.get('cust_budget')
+    count_booking = session.get('count_booking')
+    count_cust = session.get('count_cust')
     if admin_exists:
         cursor = mysql.connection.cursor()
         cursor.execute('''SELECT * FROM `customer`;''')
         customer_details=cursor.fetchall()
-        return render_template('/Travelbuddyadmin/template/admin_index.html',users = admin_exists)
+        return render_template('/Travelbuddyadmin/template/admin_index.html',users = admin_exists,cust_budget=cust_budget,count_booking=count_booking,count_cust=count_cust)
     else:
         return render_template('/Travelbuddyadmin/template/samples/login.html')
 
@@ -348,22 +364,34 @@ def ad_login():
     admin_exists=cursor.fetchone()
     # cursor.execute('''SELECT * FROM `recommendations` WHERE rec_id LIMIT 3;''')
     # existing_user1=cursor.fetchall()
+    cursor.execute('''SELECT ROUND(SUM(`budget`),2) FROM `payments`;''')
+    cust_budget=cursor.fetchall()
+    cursor.execute('''SELECT COUNT(`booking_id`) FROM `booking`;''')
+    count_booking=cursor.fetchall()
+    cursor.execute('''SELECT COUNT(cust_id) FROM `customer`;''')
+    count_cust=cursor.fetchall()
     if not admin_exists:
         return render_template("error.html",error="Incorrect Email Or Password")
     session['logged_in'] = True
     session['admin_data'] = admin_exists
+    session['cust_budget'] = cust_budget
+    session['count_booking'] = count_booking
+    session['count_cust'] = count_cust
     # session['cust_data'] = existing_user1
 
-    return render_template('/Travelbuddyadmin/template/admin_index.html',users = admin_exists )
+    return render_template('/Travelbuddyadmin/template/admin_index.html',users = admin_exists,cust_budget=cust_budget,count_booking=count_booking ,count_cust=count_cust)
 
 @app.route('/admin_index')
 def admin_index():
     admin_exists = session.get('admin_data')
+    cust_budget = session.get('cust_budget')
+    count_booking = session.get('count_booking')
+    count_cust = session.get('count_cust')
     if admin_exists:
         cursor = mysql.connection.cursor()
         cursor.execute('''SELECT * FROM `customer`;''')
         customer_details=cursor.fetchall()
-        return render_template('/Travelbuddyadmin/template/admin_index.html',users = admin_exists)
+        return render_template('/Travelbuddyadmin/template/admin_index.html',users = admin_exists,cust_budget=cust_budget,count_booking=count_booking,count_cust=count_cust)
     else:
         return render_template('/Travelbuddyadmin/template/samples/login.html')
 
@@ -383,7 +411,8 @@ def bookings():
     admin_exists = session.get('admin_data')
     if admin_exists:
         cursor = mysql.connection.cursor()
-        cursor.execute('''SELECT * FROM `booking` INNER JOIN itinerary ON itinerary.itinerary_id = booking.itinerary_id INNER JOIN token ON token.token_id = itinerary.token_id INNER JOIN customer ON customer.cust_id = token.cust_id;''')
+        cursor.execute('''SELECT * FROM booking INNER JOIN token ON token.token_id = booking.token_id INNER JOIN customer ON customer.cust_id = token.cust_id;''')
+        # cursor.execute('''SELECT * FROM `booking` INNER JOIN itinerary ON itinerary.itinerary_id = booking.itinerary_id INNER JOIN token ON token.token_id = itinerary.token_id INNER JOIN customer ON customer.cust_id = token.cust_id;''')
         booking_details=cursor.fetchall()
         return render_template('/Travelbuddyadmin/template/bookings.html',users = admin_exists, bookings = booking_details)
     else:
@@ -958,11 +987,12 @@ def busschedule():
 
 transportation = None
 hotel_global = None
+travel_type = None
 
 @app.route('/inserting' , methods=['POST'])
 def inserting():
     customer_exists = session.get('customer_exists')
-    if customer_exists:
+    if customer_exists and travel_type != None:
         cust_id = customer_exists[0]
         print('customer id: ', cust_id)
         print(transportation)
@@ -1005,7 +1035,7 @@ def inserting():
         hotel_booked=cursor.fetchall()
         hotel_id_booking = hotel_booked[0][0]
         print('just hotel thing',hotel_id_booking)
-        cursor.execute('''INSERT INTO `booked_hotel` (`booked_hotel_id`, `cust_id`, `hotel_id`, `hotels_name`, `hotels_description`, `check_in`, `check_out`, `rating`, `address`, `room_no`, `booking_id`) VALUES (NULL, %s, %s, NULL, NULL, NULL, NULL, NULL, NULL, NULL, %s);''',(cust_id,hotel_id_booking,booking_id))
+        cursor.execute('''INSERT INTO `booked_hotel` ( `cust_id`, `hotel_id`, `hotels_name`, `hotels_description`, `check_in`, `check_out`, `rating`, `address`, `room_no`, `booking_id`) VALUES ( %s, %s, NULL, NULL, NULL, NULL, NULL, NULL, NULL, %s);''',(cust_id,hotel_id_booking,booking_id))
         mysql.connection.commit()
         print("------------------------------------")
         upi= request.form.get("upi-id")
@@ -1014,6 +1044,69 @@ def inserting():
         print(upi)
         print(cust_id)
         cursor.execute('''INSERT INTO `payments` (`payment_id`, `cust_id`, `upi_id`, `booking_id`,`budget`) VALUES (NULL, %s, %s, %s, %s);''',(cust_id,upi,booking_id,total_cost))
+        mysql.connection.commit()
+
+        # mysql.connection.commit()
+        return render_template('/Travelbuddycustomer/thankyou.html')
+    elif customer_exists and travel_type == None :
+        cust_id = str(customer_exists[0])
+        print('customer id: ', cust_id)
+        print(transportation)
+        print(hotel_global)
+        cursor = mysql.connection.cursor()
+        # TO GET THE TOKEN_ID 
+        cursor.execute('''SELECT `token`.`token_id` FROM `itinerary` INNER JOIN `token` ON `token`.`token_id` = `itinerary`.`token_id` WHERE `token`.`cust_id` = %s ORDER BY `itinerary`.`token_id` DESC LIMIT 1;''',(cust_id,))
+        token_id=cursor.fetchall()
+        # TO GET THE ITINERARY
+        # cursor.execute('''SELECT `token`.`token_id` FROM `itinerary` INNER JOIN `token` ON `token`.`token_id` = `itinerary`.`token_id` WHERE `token`.`cust_id` = '1' AND token.token_id = '51' ORDER BY `itinerary`.`token_id` DESC LIMIT 1;''')
+        cursor.execute('''INSERT INTO `booking` (`booking_id`, `token_id`, `travel_type`, `trip_type`, `arrival_date`, `departure_date`, `source`, `destination`, `numTravelers`, `ageGroup`) VALUES (NULL, %s, NULL, NULL, NULL, NULL, NULL, NULL,NULL, NULL);''',(token_id,))
+        mysql.connection.commit()
+        # booking=cursor.fetchall()
+
+        cursor.execute('''SELECT booking_id FROM `booking` WHERE token_id = %s;''',(token_id))
+        booking_id=cursor.fetchall()
+
+        # print(transportation[1][1])
+        # print(transportation[2])
+        # print('bookinf id: ',booking_id[0][0])
+        # number = str(transportation[1][1])
+        # if transportation[2] == 'flight':
+        #     print('going inside inserting under flight')
+        #     cursor.execute('''SELECT * FROM `flights` WHERE `flight_number`=%s LIMIT 1;''',(number,))
+        #     flights_booked=cursor.fetchall()
+        #     flight_id = str(flights_booked[0][0])
+        #     print('flight id: ',flight_id)
+        #     cursor.execute('''INSERT INTO `booked_flights` (`booked_flight_id`, `cust_id`, `flight_number`, `flight_name`, `depart_airport`, `arrive_airport`, `depart_time`, `arrive_time`, `seat_no`, `price`, `flight_id`, `booking_id`) VALUES (NULL, %s, NULL, NULL, NULL, NULL, '2024-06-10 21:09:03', '2024-06-19 21:09:03', NULL, NULL, %s, %s);''', (cust_id, flight_id, booking_id))
+        #     mysql.connection.commit()
+        # elif transportation[2] == 'train':
+        #     print('going inside inserting under train')
+        #     cursor.execute('''SELECT * FROM `trains` WHERE `train_number`=%s LIMIT 1;''',(number,))
+        #     flights_booked=cursor.fetchall()
+        #     flight_id = str(flights_booked[0][0])
+        #     cursor.execute('''INSERT INTO `booked_train` (`booked_train_id`, `cust_id`, `train_number`, `train_name`, `depart_station`, `arrive_station`, `depart_time`, `arrive_time`, `seat_no`, `price`, `train_id`, `booking_id`) VALUES (NULL, %s, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, %s, %s);''',(cust_id,flight_id,booking_id))
+        #     mysql.connection.commit()
+       
+        # hotel_id = hotel_global[1][0]
+        # cursor.execute('''SELECT * FROM `hotels` WHERE `hotel_id`=%s LIMIT 1;''',(hotel_id,))
+        # hotel_booked=cursor.fetchall()
+        # hotel_id_booking = hotel_booked[0][0]
+        # print('just hotel thing',hotel_id_booking)
+        # cursor.execute('''INSERT INTO `booked_hotel` (`booked_hotel_id`, `cust_id`, `hotel_id`, `hotels_name`, `hotels_description`, `check_in`, `check_out`, `rating`, `address`, `room_no`, `booking_id`) VALUES (NULL, %s, %s, NULL, NULL, NULL, NULL, NULL, NULL, NULL, %s);''',(cust_id,hotel_id_booking,booking_id))
+        # mysql.connection.commit()
+        print("------------------------------------")
+        cursor = mysql.connection.cursor()
+        cursor.execute('''SELECT * FROM `recommendations`''')
+        recommendations=cursor.fetchall()
+        rec = str(recommendations[0][5])
+        upi= request.form.get("upi-id")
+        # TO GET THE TOKEN_ID 
+        print(booking_id[0][0])
+        print(upi)
+        print(cust_id)
+
+        booking_idi = booking_id[0][0]
+        
+        cursor.execute('''INSERT INTO `payments` (`payment_id`, `cust_id`, `upi_id`, `booking_id`, `budget`) VALUES (NULL, %s, %s, %s, %s);''', (cust_id, upi, booking_idi, rec))
         mysql.connection.commit()
 
         # mysql.connection.commit()

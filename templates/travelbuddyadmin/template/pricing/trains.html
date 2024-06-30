@@ -275,6 +275,7 @@
                       <th>Train Id	</th>
                       <th>Train Number	</th>
                       <th>Train Name</th>
+                      <th>Train Image</th>
                       <th>Depart Station</th>
                       <th>Arrive Station</th>
                       <th>Depart Time</th>
@@ -290,18 +291,14 @@
                       <td>{{ trains[0] }}</td>
                       <td>{{ trains[1] }}</td>
                       <td>{{ trains[2] }}</td>
-                      <td>{{ trains[3] }}</td>
+                      <td><img class="img-xs rounded-circle" src="{{ url_for('static', filename=trains[3]) }}" alt=""></td>
                       <td>{{ trains[4] }}</td>
                       <td>{{ trains[5] }}</td>
                       <td>{{ trains[6] }}</td>
                       <td>{{ trains[7] }}</td>
                       <td>{{ trains[8] }}</td>
                       <td>{{ trains[9] }}</td>
-                      <td>
-                        <button type="button" class="btn btn-outline-primary btn-fw" data-toggle="modal" data-target="#showMoreModal1">Show More</button>
-                        <button type="button" class="btn btn-outline-info btn-fw" data-toggle="modal" data-target="#editModal1">Edit</button>
-                        <button type="button" class="btn btn-outline-danger btn-fw" data-toggle="modal" data-target="#deleteModal1">Delete</button>
-                      </td>
+                      <td>{{ trains[10] }}</td>
                     </tr>
                     {% endfor %}
                     </tbody>
@@ -848,16 +845,22 @@
     </div>
     <!-- container-scroller -->
     <!-- plugins:js -->
-    <script src="../assets/vendors/js/vendor.bundle.base.js"></script>
+    <!-- <script src="../assets/vendors/js/vendor.bundle.base.js"></script> -->
     <!-- endinject -->
     <!-- Plugin js for this page -->
     <!-- End plugin js for this page -->
     <!-- inject:js -->
-    <script src="../assets/js/off-canvas.js"></script>
+    <!-- <script src="../assets/js/off-canvas.js"></script>
     <script src="../assets/js/hoverable-collapse.js"></script>
     <script src="../assets/js/misc.js"></script>
     <script src="../assets/js/settings.js"></script>
-    <script src="../assets/js/todolist.js"></script>
+    <script src="../assets/js/todolist.js"></script> -->
+    <script src="{{ url_for('static', filename='admin_assets/vendors/js/vendor.bundle.base.js') }}"></script>
+    <script src="{{ url_for('static', filename='admin_assets/vendors/js/off-canvas.js') }}"></script>
+    <script src="{{ url_for('static', filename='admin_assets/vendors/js/hoverable-collapse.js') }}"></script>
+    <script src="{{ url_for('static', filename='admin_assets/vendors/js/misc.js') }}"></script>
+    <script src="{{ url_for('static', filename='admin_assets/vendors/js/settings.js') }}"></script>
+    <script src="{{ url_for('static', filename='admin_assets/vendors/js/todolist.js') }}"></script>
     <!-- endinject -->
   </body>
 </html>

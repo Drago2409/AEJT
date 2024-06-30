@@ -288,7 +288,8 @@
                     <thead>
                       <tr>
                         <th>Rental Id</th>
-                        <th>Rental Name ID</th>
+                        <th>Rental Name </th>
+                        <th>Rental image</th>
                         <th>Rental Available</th>
                         <th>Total Rentals </th>
                         <th>Price </th>
@@ -299,14 +300,11 @@
                       <tr>
                         <td>{{ vehicle[0] }}</td>
                         <td>{{ vehicle[1] }}</td>
-                        <td>{{ vehicle[2] }}</td>
+                        <td><img class="img-xs rounded-circle" src="{{ url_for('static', filename=vehicle[2]) }}" alt=""></td>
                         <td>{{ vehicle[3] }}</td>
                         <td>{{ vehicle[4] }}</td>
-                        <td>
-                              <button type="button" class="btn btn-outline-primary btn-fw" data-toggle="modal" data-target="#showMoreModal1">Show More</button>
-                              <button type="button" class="btn btn-outline-info btn-fw" data-toggle="modal" data-target="#editModal1">Edit</button>
-                              <button type="button" class="btn btn-outline-danger btn-fw" data-toggle="modal" data-target="#deleteModal1">Delete</button>
-                          </td>
+                        <td>{{ vehicle[5] }}</td>
+                        
                           </tr>
                           {% endfor %} 
                       </tbody>
@@ -326,16 +324,22 @@
     </div>
     <!-- container-scroller -->
     <!-- plugins:js -->
-    <script src="../assets/vendors/js/vendor.bundle.base.js"></script>
+    <!-- <script src="../assets/vendors/js/vendor.bundle.base.js"></script> -->
     <!-- endinject -->
     <!-- Plugin js for this page -->
     <!-- End plugin js for this page -->
     <!-- inject:js -->
-    <script src="../assets/js/off-canvas.js"></script>
+    <!-- <script src="../assets/js/off-canvas.js"></script>
     <script src="../assets/js/hoverable-collapse.js"></script>
     <script src="../assets/js/misc.js"></script>
     <script src="../assets/js/settings.js"></script>
-    <script src="../assets/js/todolist.js"></script>
+    <script src="../assets/js/todolist.js"></script> -->
     <!-- endinject -->
+    <script src="{{ url_for('static', filename='admin_assets/vendors/js/vendor.bundle.base.js') }}"></script>
+    <script src="{{ url_for('static', filename='admin_assets/vendors/js/off-canvas.js') }}"></script>
+    <script src="{{ url_for('static', filename='admin_assets/vendors/js/hoverable-collapse.js') }}"></script>
+    <script src="{{ url_for('static', filename='admin_assets/vendors/js/misc.js') }}"></script>
+    <script src="{{ url_for('static', filename='admin_assets/vendors/js/settings.js') }}"></script>
+    <script src="{{ url_for('static', filename='admin_assets/vendors/js/todolist.js') }}"></script>
   </body>
 </php>

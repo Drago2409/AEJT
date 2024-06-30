@@ -113,19 +113,13 @@
                         <h4 class="mb-4">UPI Payment</h4>
                         <form action="{{ url_for('inserting') }}" method="post">
                             <div class="mb-3">
+                                <h3>&#8377; {{ total_cost }}</h3>
                                 <label for="upi-id" class="form-label">Enter UPI ID</label>
                                 <input type="text" class="form-control" id="upi-id" name="upi-id" placeholder="example@upi">
                             </div>
                             <button type="submit" class="btn btn-primary w-100">Pay Now</button>
                             <!-- href="{{ url_for('inserting') }}"  -->
                         </form>
-                    </div>
-                </div>
-                <div class="col-lg-6 col-md-8 wow fadeInUp" data-wow-delay="0.3s">
-                    <div class="payment-item text-center">
-                        <h4 class="mb-4">Pay via QR Code</h4>
-                        <img class="img-fluid mb-3" src="{{ url_for('static', filename='customer_assets/img/qr-code.png') }}" alt="QR Code">
-                        <p>Scan the QR code using your UPI app to complete the payment.</p>
                     </div>
                 </div>
             </div>
